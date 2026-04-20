@@ -48,13 +48,7 @@ useEffect(() => {
     if (!session?.user?.email) return
     const u = await fetchuser(session.user.email)
     if (!u) return
-    setform({
-  name: u.name || "",
-  email: u.email || "",
-  username: u.username || "",
-  profilepic: "",   
-  coverpic: ""     
-})
+    setform(u)
   }, [session])
 
   useEffect(() => {
