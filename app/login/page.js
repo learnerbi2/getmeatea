@@ -1,5 +1,4 @@
 
-// app/login/page.jsx
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useSession, signIn } from 'next-auth/react'
