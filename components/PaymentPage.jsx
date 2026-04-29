@@ -1,14 +1,3 @@
-// "use client"
-// import React, { useEffect, useState } from 'react'
-// import Script from 'next/script'
-// import { useSession } from 'next-auth/react'
-// import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
-// import { useSearchParams } from 'next/navigation'
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import { Bounce } from 'react-toastify';
-// import { useRouter } from 'next/navigation'
-// import { notFound } from "next/navigation"
 
 "use client"
 import React, { useEffect, useState, useCallback } from 'react'
@@ -62,6 +51,7 @@ const PaymentPage = ({ username }) => {
         })
         router.replace(`/${username}`)
     }
+    
 }, [])
 
     const handleChange = (e) => {
@@ -81,6 +71,8 @@ const PaymentPage = ({ username }) => {
         }
     }
 
+
+
     return (
         <>
             <ToastContainer
@@ -96,12 +88,10 @@ const PaymentPage = ({ username }) => {
                 theme="light"
             />
 
-            {/* ✅ No Razorpay <Script> tag needed anymore */}
-
             <div className='cover w-full bg-red-50 relative'>
-                <img className='object-cover w-full h-48 md:h-[350] shadow-blue-700 shadow-sm' src={currentUser.coverpic} alt="" />
+                <img className='object-cover w-full h-48 md:h-[350] shadow-blue-700 shadow-sm' src={currentUser.coverpic || "/default-coverpic.jpg"} alt="" />
                 <div className='absolute -bottom-20 right-[33%] md:right-[44%] border-white overflow-hidden border-2 rounded-full size-36'>
-                    <img className='rounded-full object-cover size-36' width={128} height={128}  src={currentUser.profilepic} alt="" />
+                    <img className='rounded-full object-cover size-36' width={128} height={128}  src={currentUser.profilepic || "/avatar.jpg.jpg"  } alt="" />
                 </div>
             </div>
 
@@ -120,7 +110,7 @@ const PaymentPage = ({ username }) => {
                             {payments.length == 0 && <li>No payments yet</li>}
                             {payments.map((p, i) => (
                                 <li key={i} className='my-4 flex gap-2 items-center'>
-                                    <img width={33} src="avatar.gif" alt="user avatar" />
+                                    <img width={33} src="/coffee-break.gif" alt="user avatar" />
                                     <span>
                                         {p.name} donated <span className='font-bold'>₹{p.amount}</span> with a message &quot;{p.message}&quot;
                                     </span>
@@ -192,7 +182,7 @@ const PaymentPage = ({ username }) => {
                             </button>
                             <button
                                 className='bg-slate-800 p-3 rounded-lg hover:bg-slate-700 disabled:opacity-50'
-                                onClick={() => pay(3000)}
+                                onClick={() => pay(30000)}
                                 disabled={loading}
                             >
                                 Pay ₹300

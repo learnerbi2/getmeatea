@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+credit card for test:
+
+Card (success):     4242 4242 4242 4242
+Card (decline):     4000 0000 0000 0002
+3D Secure:          4000 0025 0000 3155
+
+UPI (test):         Not available in test mode
+GPay (test):        Use test card instead

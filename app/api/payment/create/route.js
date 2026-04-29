@@ -12,6 +12,14 @@ export const POST = async (req) => {
 
   const { amount, to_user, name, message } = await req.json();
 
+      // ✅ Minimum amount check
+    if (!amount || amount < 50) {
+        return NextResponse.json(
+            { success: false, message: "Minimum amount is ₹50" },
+            { status: 400 }
+        )
+    }
+
   // 1. Check if the user exists
   const user = await User.findOne({ username: to_user });
   if (!user) {
@@ -23,7 +31,21 @@ export const POST = async (req) => {
 
   // 2. Create Stripe Checkout Session
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
+    // ✅ Add all Indian payment methods
+        payment_method_types: [
+            "card",         // Credit/Debit cards
+        ],
+
+        // ✅ Enable UPI and GPay via payment_method_options
+        payment_method_options: {
+            card: {
+                request_three_d_secure: "automatic",
+            },
+        },
+
+        // ✅ This enables GPay, Apple Pay automatically
+        payment_method_configuration: process.env.STRIPE_PAYMENT_CONFIG_ID,
+
     line_items: [
       {
         price_data: {
@@ -38,6 +60,12 @@ export const POST = async (req) => {
       },
     ],
     mode: "payment",
+      // ✅ Billing address for Indian payments
+    billing_address_collection: "auto",
+      // ✅ Phone number for UPI
+    phone_number_collection: {
+            enabled: true,
+        },
     success_url: `${process.env.NEXT_PUBLIC_URL}/${to_user}?paymentdone=true`,
     cancel_url:  `${process.env.NEXT_PUBLIC_URL}/${to_user}?paymentcancelled=true`,
     metadata: { to_user, name, message }, 

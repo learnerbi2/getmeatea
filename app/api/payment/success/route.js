@@ -3,6 +3,7 @@ import Stripe from "stripe"
 import connectDb from "@/db/connectDb"
 import Payment from "@/models/Payments"
 import { NextResponse } from "next/server"
+import { createOpportunity } from "@/lib/salesforce"
 
 const stripe = new Stripe(process.env.KEY_SECRET)
 
@@ -66,6 +67,20 @@ export const GET = async (req) => {
             { new: true }
         )
     }
+
+    // ✅ Now create Salesforce opportunity — payment confirmed!
+        try {
+            await createOpportunity({
+                name:    session.metadata.name    || "Anonymous",
+                amount:  payment.amount,
+                message: session.metadata.message || "",
+                to_user: session.metadata.to_user,
+            })
+            console.log("✅ Salesforce opportunity created")
+        } catch (sfErr) {
+            // ⚠️ Don't block redirect if Salesforce fails
+            console.error("❌ Salesforce error:", sfErr.message)
+        }
 
     // -------------------------------------------------------
     // STEP 6: Redirect to campaign page with success param

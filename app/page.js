@@ -5,10 +5,10 @@ import Image from 'next/image'
 function Page() {
   return (
   <>
-     <h1 className='text-4xl font-bold text-white flex justify-center items-center'>Buy Me A Chai<Image className="w-10 h-10 ml-2" src="/coffee-break.gif" alt="tea icon" width={40} height={40}/></h1>
+     <h1 className='text-4xl font-bold text-white flex justify-center items-center'>Buy Me A Tea<Image className="w-10 h-10 ml-2" src="/coffee-break.gif" alt="tea icon" width={40} height={40}/></h1>
      <p className='text-white'>GetMeATea is crowsourcing platform for creators to get support from their fans!</p>
       <p className="text-center md:text-left">
-          A place where your fans can buy you a chai. Unleash the power of your fans and get your projects funded.
+          A place where your fans can buy you a Tea. Unleash the power of your fans and get your projects funded.
         </p>
      <div className='flex gap-4'>
                 <Link href={"/login"}>
